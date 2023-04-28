@@ -1,11 +1,5 @@
-import {
-  Col,
-  Container,
-  Nav,
-  Navbar,
-  Row,
-} from '../node_modules/react-bootstrap/esm/index'
-import { sampleProducts } from './data'
+import { Container, Nav, Navbar } from 'react-bootstrap'
+import { Outlet } from 'react-router-dom'
 
 function App() {
   return (
@@ -27,23 +21,11 @@ function App() {
       </header>
       <main>
         <Container className="mt-3">
-          <Row>
-            {sampleProducts.map((product) => (
-              <Col key={product.slug} sm={6} md={4} lg={3}>
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="product-image"
-                />
-                <h2>{product.name}</h2>
-                <p>${product.price}</p>
-              </Col>
-            ))}
-          </Row>
+          <Outlet />
         </Container>
       </main>
       <footer>
-        <div className="text-center">All rights reserved by Muhammad UFO</div>
+        <div className="text-center ">All rights reserved by Muhammad UFO</div>
       </footer>
     </div>
   )
