@@ -57,7 +57,6 @@ const HomePage = () => {
 
   useEffect(() => {
     fetchData()
-    console.log(products)
   }, [])
 
   return loading ? (
