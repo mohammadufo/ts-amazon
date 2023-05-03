@@ -12,6 +12,6 @@ export const useGetProductDetailsBySlugQuery = (slug: string) => {
   return useQuery({
     queryKey: ["products", slug],
     queryFn: async () =>
-      (await apiClient.get<Product>(`api/products/${slug}`)).data,
+      (await apiClient.get<Product>(`api/products/slug/${slug}`)).data,
   });
 };
