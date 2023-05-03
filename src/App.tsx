@@ -1,9 +1,9 @@
-import { Container, Nav, Navbar } from 'react-bootstrap'
-import { Outlet } from 'react-router-dom'
+import { Container, Nav, Navbar } from "react-bootstrap";
+import { Outlet } from "react-router-dom";
 
 function App() {
   return (
-    <div className="d-flex flex-column vh-100">
+    <div className="d-flex flex-column main">
       <header>
         <Navbar bg="dark" variant="dark" expand="lg">
           <Container>
@@ -24,11 +24,11 @@ function App() {
           <Outlet />
         </Container>
       </main>
-      <footer>
+      <footer className="footer">
         <div className="text-center ">All rights reserved by Muhammad UFO</div>
       </footer>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

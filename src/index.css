@@ -16,3 +16,13 @@
 .rating span {
   color: #ffc000;
 }
+
+.main {
+  height: 100vh;
+}
+
+.footer {
+  bottom: 2rem;
+  position: absolute;
+  width: 100%;
+}
