@@ -1,21 +1,24 @@
-import { Outlet } from "react-router-dom";
-import { useContext, useEffect } from "react";
-import { Button, Container, Nav, Navbar } from "react-bootstrap";
-import { Store } from "./Store";
+import { useContext, useEffect } from 'react'
+import { Badge, Button, Container, Nav, Navbar } from 'react-bootstrap'
+import { Link, Outlet } from 'react-router-dom'
+import { Store } from './Store'
+import { LinkContainer } from 'react-router-bootstrap'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   const {
-    state: { mode },
+    state: { mode, cart },
     dispatch,
-  } = useContext(Store);
+  } = useContext(Store)
 
   useEffect(() => {
-    document.body.setAttribute("data-bs-theme", mode);
-  }, [mode]);
+    document.body.setAttribute('data-bs-theme', mode)
+  }, [mode])
 
   const switchModeHandler = () => {
-    dispatch({ type: "SWITCH_MODE" });
-  };
+    dispatch({ type: 'SWITCH_MODE' })
+  }
 
   return (
     <div className="d-flex flex-column main">
@@ -25,18 +28,25 @@ function App() {
           className="d-flex align-items-center justify-content-around"
         >
           <div>
-            <Navbar.Brand>Amazon</Navbar.Brand>
+            <LinkContainer to="/">
+              <Navbar.Brand>Amazon</Navbar.Brand>
+            </LinkContainer>
           </div>
           <Nav>
             <Button variant={mode} onClick={switchModeHandler}>
-              <i className={mode === "light" ? "fa fa-sun" : "fa fa-moon"}></i>
+              <i className={mode === 'light' ? 'fa fa-sun' : 'fa fa-moon'}></i>
             </Button>
-            <a href="/cart" className="nav-link">
+            <Link to="/cart" className="nav-link">
               Cart
-            </a>
-            <a href="/signin" className="nav-link">
+              {cart.cartItems.length > 0 && (
+                <Badge pill bg="danger">
+                  {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                </Badge>
+              )}
+            </Link>
+            <Link to="/signin" className="nav-link">
               Sign In
-            </a>
+            </Link>
           </Nav>
         </Navbar>
       </header>
@@ -48,8 +58,9 @@ function App() {
       <footer className="footer">
         <div className="text-center ">All rights reserved by Muhammad UFO</div>
       </footer>
+      <ToastContainer position="bottom-center" limit={1} />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
