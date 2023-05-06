@@ -1,44 +1,45 @@
-import { Helmet } from 'react-helmet-async'
-import { Badge, Button, Card, Col, ListGroup, Row } from 'react-bootstrap'
-import { useNavigate, useParams } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import LoadingBox from '../components/LoadingBox'
-import MessageBox from '../components/MessageBox'
-import Rating from '../components/Rating'
-import { useGetProductDetailsBySlugQuery } from '../hooks/productHooks'
-import { ApiError } from '../types/ApiError'
-import { getError } from '../utils/getError'
-import { useContext } from 'react'
-import { Store } from '../Store'
-import { convertProductToCartItem } from '../utils/utils'
+import { Helmet } from "react-helmet-async";
+import { Badge, Button, Card, Col, ListGroup, Row } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
+import Rating from "../components/Rating";
+import { useGetProductDetailsBySlugQuery } from "../hooks/productHooks";
+import { ApiError } from "../types/ApiError";
+import { getError } from "../utils/getError";
+import { useContext } from "react";
+import { Store } from "../Store";
+import { convertProductToCartItem } from "../utils/utils";
+
 const ProductPage = () => {
-  const params = useParams()
-  const { slug } = params
+  const params = useParams();
+  const { slug } = params;
   const {
     data: product,
     isLoading,
     error,
-  } = useGetProductDetailsBySlugQuery(slug!)
+  } = useGetProductDetailsBySlugQuery(slug!);
 
-  const { state, dispatch } = useContext(Store)
-  const { cart } = state
+  const { state, dispatch } = useContext(Store);
+  const { cart } = state;
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const addToCartHandler = () => {
-    const existItem = cart.cartItems.find((x) => x._id === product!._id)
-    const quantity = existItem ? existItem.quantity + 1 : 1
+    const existItem = cart.cartItems.find((x) => x._id === product!._id);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
     if (product!.countInStock < quantity) {
-      toast.warn('Sorry. Product is out of stock')
-      return
+      toast.warn("Sorry. Product is out of stock");
+      return;
     }
     dispatch({
-      type: 'CART_ADD_ITEM',
+      type: "CART_ADD_ITEM",
       payload: { ...convertProductToCartItem(product!), quantity },
-    })
-    toast.success('Product added to the cart')
-    navigate('/cart')
-  }
+    });
+    toast.success("Product added to the cart");
+    navigate("/cart");
+  };
 
   return isLoading ? (
     <LoadingBox />
@@ -110,7 +111,7 @@ const ProductPage = () => {
         </Col>
       </Row>
     </div>
-  )
-}
+  );
+};
 
-export default ProductPage
+export default ProductPage;
